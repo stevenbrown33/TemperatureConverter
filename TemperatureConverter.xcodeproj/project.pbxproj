@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF2B64582059C1FF00FC989E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B64572059C1FF00FC989E /* Colors.swift */; };
 		DF6D5EBE20585FB4002F7BF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6D5EBD20585FB4002F7BF5 /* AppDelegate.swift */; };
 		DF6D5EC320585FB4002F7BF5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF6D5EC120585FB4002F7BF5 /* Main.storyboard */; };
 		DF6D5EC520585FB4002F7BF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF6D5EC420585FB4002F7BF5 /* Assets.xcassets */; };
 		DF6D5EC820585FB4002F7BF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF6D5EC620585FB4002F7BF5 /* LaunchScreen.storyboard */; };
-		DF6D5ED62058657F002F7BF5 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6D5ED52058657F002F7BF5 /* Colors.swift */; };
 		DF6D5ED820586730002F7BF5 /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6D5ED720586730002F7BF5 /* ConverterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF2B64572059C1FF00FC989E /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		DF6D5EBA20585FB4002F7BF5 /* TemperatureConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TemperatureConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF6D5EBD20585FB4002F7BF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF6D5EC220585FB4002F7BF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DF6D5EC420585FB4002F7BF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF6D5EC720585FB4002F7BF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DF6D5EC920585FB4002F7BF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF6D5ED52058657F002F7BF5 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = ../../../../Colors.swift; sourceTree = "<group>"; };
 		DF6D5ED720586730002F7BF5 /* ConverterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -37,6 +37,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF2B64592059C21700FC989E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DF2B64572059C1FF00FC989E /* Colors.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		DF6D5EB120585FB4002F7BF5 = {
 			isa = PBXGroup;
 			children = (
@@ -56,10 +64,8 @@
 		DF6D5EBC20585FB4002F7BF5 /* TemperatureConverter */ = {
 			isa = PBXGroup;
 			children = (
-				DF6D5ED420586539002F7BF5 /* Models */,
-				DF6D5ED32058652D002F7BF5 /* ModelControllers */,
 				DF6D5ED120586515002F7BF5 /* ViewControllers */,
-				DF6D5ED220586517002F7BF5 /* Helpers */,
+				DF2B64592059C21700FC989E /* Helpers */,
 				DF6D5ED0205864F5002F7BF5 /* UI */,
 				DF6D5ECF205864ED002F7BF5 /* Resources */,
 			);
@@ -91,29 +97,6 @@
 				DF6D5ED720586730002F7BF5 /* ConverterViewController.swift */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		DF6D5ED220586517002F7BF5 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				DF6D5ED52058657F002F7BF5 /* Colors.swift */,
-			);
-			name = Helpers;
-			path = "New Group/Helpers";
-			sourceTree = "<group>";
-		};
-		DF6D5ED32058652D002F7BF5 /* ModelControllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ModelControllers;
-			sourceTree = "<group>";
-		};
-		DF6D5ED420586539002F7BF5 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,7 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF6D5EBE20585FB4002F7BF5 /* AppDelegate.swift in Sources */,
-				DF6D5ED62058657F002F7BF5 /* Colors.swift in Sources */,
+				DF2B64582059C1FF00FC989E /* Colors.swift in Sources */,
 				DF6D5ED820586730002F7BF5 /* ConverterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:TemperatureConverter.xcodeproj">
+      location = "group:../TemperatureConverter/Helpers">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>
