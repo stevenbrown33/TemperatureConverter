@@ -16,11 +16,44 @@ class ConverterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .primaryGreen
+        view.backgroundColor = .primaryColor
         setupButtons()
         setupSegmentedControl()
         setupButtonConstraints()
         setupSegmentedControlConstraints()
+        temperatureSegmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
+    }
+    
+    func colorChanging() {
+        guard let inputText = inputLabel.text else { return }
+        let inputDouble = Double(inputText.dropLast()) ?? 0.0
+        if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble <= -10.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble <= -23.33 {
+            view.backgroundColor = .tempOne
+        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > -10.0 && inputDouble <= 0.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > -23.33 && inputDouble <= -17.78 {
+            view.backgroundColor = .tempTwo
+        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 0.0 && inputDouble <= 10.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > -17.78 && inputDouble <= -12.22 {
+            view.backgroundColor = .tempThree
+        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 10.0 && inputDouble <= 20.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > -12.22 && inputDouble <= -6.67 {
+            view.backgroundColor = .tempFour
+        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 20.0 && inputDouble <= 30.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > -6.67 && inputDouble <= -1.11 {
+            view.backgroundColor = .tempFour
+        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 30.0 && inputDouble <= 40.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > -1.11 && inputDouble <= 4.44 {
+            view.backgroundColor = .tempFive
+        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 40.0 && inputDouble <= 50.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > 4.44 && inputDouble <= 10.00 {
+            view.backgroundColor = .tempSix
+        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 50.0 && inputDouble <= 60.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > 10.00 && inputDouble <= 15.56 {
+            view.backgroundColor = .tempSeven
+        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 60.0 && inputDouble <= 70.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > 15.56 && inputDouble <= 21.11 {
+            view.backgroundColor = .tempEight
+        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 70.0 && inputDouble <= 80.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > 21.11 && inputDouble <= 26.67 {
+            view.backgroundColor = .tempNine
+        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 80.0 && inputDouble <= 90.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > 26.67 && inputDouble <= 32.22 {
+            view.backgroundColor = .tempTen
+        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 90.0 && inputDouble <= 100.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > 32.22 && inputDouble <= 37.78 {
+            view.backgroundColor = .tempEleven
+        } else {
+            view.backgroundColor = .tempTwelve
+        }
     }
     
     func updateViews() {
@@ -30,7 +63,6 @@ class ConverterViewController: UIViewController {
             let celciusString = "\((inputDouble -  32) * (5/9))"
             let celcius = Double(celciusString) ?? 0.00
             outputLabel.text = "\(celcius.rounded(toPlaces: 2))℃"
-            
         } else {
             guard let inputText = inputLabel.text else { return }
             let inputDouble = Double(inputText.dropLast()) ?? 0
@@ -43,19 +75,19 @@ class ConverterViewController: UIViewController {
     // MARK: Format Buttons
     func setupButtons() {
         // set background colors
-        oneButton.backgroundColor = .primaryGreen
-        twoButton.backgroundColor = .primaryGreen
-        threeButton.backgroundColor = .primaryGreen
-        fourButton.backgroundColor = .primaryGreen
-        fiveButton.backgroundColor = .primaryGreen
-        sixButton.backgroundColor = .primaryGreen
-        sevenButton.backgroundColor = .primaryGreen
-        eightButton.backgroundColor = .primaryGreen
-        nineButton.backgroundColor = .primaryGreen
-        decimalButton.backgroundColor = .primaryGreen
-        zeroButton.backgroundColor = .primaryGreen
-        backspaceButton.backgroundColor = .primaryGreen
-        clearButton.backgroundColor = .primaryGreen
+        oneButton.backgroundColor = .clear
+        twoButton.backgroundColor = .clear
+        threeButton.backgroundColor = .clear
+        fourButton.backgroundColor = .clear
+        fiveButton.backgroundColor = .clear
+        sixButton.backgroundColor = .clear
+        sevenButton.backgroundColor = .clear
+        eightButton.backgroundColor = .clear
+        nineButton.backgroundColor = .clear
+        decimalButton.backgroundColor = .clear
+        zeroButton.backgroundColor = .clear
+        negativeButton.backgroundColor = .clear
+        clearButton.backgroundColor = .clear
         
         // set text colors
         oneButton.titleLabel?.textColor = .white
@@ -69,7 +101,7 @@ class ConverterViewController: UIViewController {
         nineButton.titleLabel?.textColor = .white
         decimalButton.titleLabel?.textColor = .white
         zeroButton.titleLabel?.textColor = .white
-        backspaceButton.titleLabel?.textColor = .white
+        negativeButton.titleLabel?.textColor = .white
         clearButton.titleLabel?.textColor = .white
         inputLabel.textColor = .white
         equalLabel.textColor = .white
@@ -87,11 +119,11 @@ class ConverterViewController: UIViewController {
         nineButton.setTitle("9", for: .normal)
         decimalButton.setTitle(".", for: .normal)
         zeroButton.setTitle("0", for: .normal)
-        backspaceButton.setTitle("<", for: .normal)
+        negativeButton.setTitle("+/-", for: .normal)
         clearButton.setTitle("Clear", for: .normal)
-        inputLabel.text = "32℉"
+        inputLabel.text = "℉"
         equalLabel.text = "="
-        outputLabel.text = "0℃"
+        outputLabel.text = "℃"
         inputLabel.textAlignment = .center
         equalLabel.textAlignment = .center
         outputLabel.textAlignment = .center
@@ -108,7 +140,7 @@ class ConverterViewController: UIViewController {
         nineButton.titleLabel?.font = UIFont(name: "Futura", size: 30)
         decimalButton.titleLabel?.font = UIFont(name: "Futura", size: 30)
         zeroButton.titleLabel?.font = UIFont(name: "Futura", size: 30)
-        backspaceButton.titleLabel?.font = UIFont(name: "Futura", size: 30)
+        negativeButton.titleLabel?.font = UIFont(name: "Futura", size: 30)
         clearButton.titleLabel?.font = UIFont(name: "Futura", size: 30)
         inputLabel.font = UIFont(name: "Futura", size: 50)
         outputLabel.font = UIFont(name: "Futura", size: 50)
@@ -148,9 +180,9 @@ class ConverterViewController: UIViewController {
         zeroButton.addTarget(self, action: #selector(zeroButtonTouchDown), for: .touchDown)
         zeroButton.addTarget(self, action: #selector(zeroButtonTouchUp), for: .touchUpInside)
         zeroButton.addTarget(self, action: #selector(zeroButtonDragOut), for: .touchUpOutside)
-        backspaceButton.addTarget(self, action: #selector(backspaceButtonTouchDown), for: .touchDown)
-        backspaceButton.addTarget(self, action: #selector(backspaceButtonTouchUp), for: .touchUpInside)
-        backspaceButton.addTarget(self, action: #selector(backspaceButtonDragOut), for: .touchUpOutside)
+        negativeButton.addTarget(self, action: #selector(negativeButtonTouchDown), for: .touchDown)
+        negativeButton.addTarget(self, action: #selector(negativeButtonTouchUp), for: .touchUpInside)
+        negativeButton.addTarget(self, action: #selector(negativeButtonDragOut), for: .touchUpOutside)
         clearButton.addTarget(self, action: #selector(clearButtonTouchDown), for: .touchDown)
         clearButton.addTarget(self, action: #selector(clearButtonTouchUp), for: .touchUpInside)
         clearButton.addTarget(self, action: #selector(clearButtonDragOut), for: .touchUpOutside)
@@ -167,7 +199,7 @@ class ConverterViewController: UIViewController {
         view.addSubview(nineButton)
         view.addSubview(decimalButton)
         view.addSubview(zeroButton)
-        view.addSubview(backspaceButton)
+        view.addSubview(negativeButton)
         view.addSubview(clearButton)
         view.addSubview(inputLabel)
         view.addSubview(outputLabel)
@@ -177,17 +209,17 @@ class ConverterViewController: UIViewController {
     //MARK: Format SegmentedControl
     func setupSegmentedControl() {
         temperatureSegmentedControl = UISegmentedControl(items: items)
-        temperatureSegmentedControl.backgroundColor = .primaryGreen
+        temperatureSegmentedControl.backgroundColor = .clear
         temperatureSegmentedControl.tintColor = .white
         temperatureSegmentedControl.selectedSegmentIndex = 0
         temperatureSegmentedControl.setTitleTextAttributes([
             NSAttributedStringKey.font : UIFont(name: "Futura", size: 16) as Any,
             NSAttributedStringKey.foregroundColor: UIColor.white,
-            NSAttributedStringKey.backgroundColor: UIColor.primaryGreen
+            NSAttributedStringKey.backgroundColor: UIColor.clear
             ], for: .normal)
         temperatureSegmentedControl.setTitleTextAttributes([
             NSAttributedStringKey.font : UIFont(name: "Futura", size: 16) as Any,
-            NSAttributedStringKey.foregroundColor: UIColor.primaryGreen,
+            NSAttributedStringKey.foregroundColor: UIColor.primaryColor,
             NSAttributedStringKey.backgroundColor: UIColor.white
             ], for: .selected)
         temperatureSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
@@ -207,7 +239,7 @@ class ConverterViewController: UIViewController {
         nineButton.translatesAutoresizingMaskIntoConstraints = false
         decimalButton.translatesAutoresizingMaskIntoConstraints = false
         zeroButton.translatesAutoresizingMaskIntoConstraints = false
-        backspaceButton.translatesAutoresizingMaskIntoConstraints = false
+        negativeButton.translatesAutoresizingMaskIntoConstraints = false
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         inputLabel.translatesAutoresizingMaskIntoConstraints = false
         outputLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -223,10 +255,10 @@ class ConverterViewController: UIViewController {
         let sevenEightWidths = NSLayoutConstraint(item: sevenButton, attribute: .width, relatedBy: .equal, toItem: eightButton, attribute: .width, multiplier: 1, constant: 0)
         let eightNineWidths = NSLayoutConstraint(item: eightButton, attribute: .width, relatedBy: .equal, toItem: nineButton, attribute: .width, multiplier: 1, constant: 0)
         let decimalZeroWidths = NSLayoutConstraint(item: decimalButton, attribute: .width, relatedBy: .equal, toItem: zeroButton, attribute: .width, multiplier: 1, constant: 0)
-        let zeroBackspaceWidths = NSLayoutConstraint(item: zeroButton, attribute: .width, relatedBy: .equal, toItem: backspaceButton, attribute: .width, multiplier: 1, constant: 0)
+        let zeroNegativeWidths = NSLayoutConstraint(item: zeroButton, attribute: .width, relatedBy: .equal, toItem: negativeButton, attribute: .width, multiplier: 1, constant: 0)
         let clearButtonSegmentedControlWidths = NSLayoutConstraint(item: clearButton, attribute: .width, relatedBy: .equal, toItem: temperatureSegmentedControl, attribute: .width, multiplier: 1, constant: 0)
         
-        view.addConstraints([inputEqualWidths, equalOutputWidths, oneTwoWidths, twoThreeWidths, fourFiveWidths, fiveSixWidths, sevenEightWidths, eightNineWidths, decimalZeroWidths, zeroBackspaceWidths, clearButtonSegmentedControlWidths])
+        view.addConstraints([inputEqualWidths, equalOutputWidths, oneTwoWidths, twoThreeWidths, fourFiveWidths, fiveSixWidths, sevenEightWidths, eightNineWidths, decimalZeroWidths, zeroNegativeWidths, clearButtonSegmentedControlWidths])
         
         // Height constraints
         let inputOutputHeights = NSLayoutConstraint(item: inputLabel, attribute: .height, relatedBy: .equal, toItem: outputLabel, attribute: .height, multiplier: 1, constant: 0)
@@ -239,10 +271,10 @@ class ConverterViewController: UIViewController {
         let eightZeroHeights = NSLayoutConstraint(item: eightButton, attribute: .height, relatedBy: .equal, toItem: zeroButton, attribute: .height, multiplier: 1, constant: 0)
         let threeSixHeights = NSLayoutConstraint(item: threeButton, attribute: .height, relatedBy: .equal, toItem: sixButton, attribute: .height, multiplier: 1, constant: 0)
         let sixNineHeights = NSLayoutConstraint(item: sixButton, attribute: .height, relatedBy: .equal, toItem: nineButton, attribute: .height, multiplier: 1, constant: 0)
-        let nineBackspaceHeights = NSLayoutConstraint(item: nineButton, attribute: .height, relatedBy: .equal, toItem: backspaceButton, attribute: .height, multiplier: 1, constant: 0)
+        let nineNegativeHeights = NSLayoutConstraint(item: nineButton, attribute: .height, relatedBy: .equal, toItem: negativeButton, attribute: .height, multiplier: 1, constant: 0)
         let clearButtonHeights = NSLayoutConstraint(item: clearButton, attribute: .height, relatedBy: .equal, toItem: zeroButton, attribute: .height, multiplier: 1, constant: 0)
         
-        view.addConstraints([inputOutputHeights, equalLabelHeights, oneFourHeights, fourSevenHeights, sevenDecimalHeights, twoFiveHeights, fiveEightHeights, eightZeroHeights, threeSixHeights, sixNineHeights, nineBackspaceHeights, clearButtonHeights])
+        view.addConstraints([inputOutputHeights, equalLabelHeights, oneFourHeights, fourSevenHeights, sevenDecimalHeights, twoFiveHeights, fiveEightHeights, eightZeroHeights, threeSixHeights, sixNineHeights, nineNegativeHeights, clearButtonHeights])
         
         // Input Label constraints
         let inputLabelLeading =  NSLayoutConstraint(item: inputLabel, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0)
@@ -268,21 +300,21 @@ class ConverterViewController: UIViewController {
         // One constraints
         let oneLeading = NSLayoutConstraint(item: oneButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 30)
         let oneTrailing = NSLayoutConstraint(item: oneButton, attribute: .trailing, relatedBy: .equal, toItem: twoButton, attribute: .leading, multiplier: 1, constant: 0)
-        let oneTop = NSLayoutConstraint(item: oneButton, attribute: .top, relatedBy: .equal, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 50)
+        let oneTop = NSLayoutConstraint(item: oneButton, attribute: .top, relatedBy: .equal, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 35)
         let oneBottom = NSLayoutConstraint(item: oneButton, attribute: .bottom, relatedBy: .equal, toItem: fourButton, attribute: .top, multiplier: 1, constant: 0)
         
         view.addConstraints([oneLeading, oneTrailing, oneTop, oneBottom])
         
         // Two constraints
         let twoTrailing = NSLayoutConstraint(item: twoButton, attribute: .trailing, relatedBy: .equal, toItem: threeButton, attribute: .leading, multiplier: 1, constant: 0)
-        let twoTop = NSLayoutConstraint(item: twoButton, attribute: .top, relatedBy: .equal, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 50)
+        let twoTop = NSLayoutConstraint(item: twoButton, attribute: .top, relatedBy: .equal, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 35)
         let twoBottom = NSLayoutConstraint(item: twoButton, attribute: .bottom, relatedBy: .equal, toItem: fiveButton, attribute: .top, multiplier: 1, constant: 0)
         
         view.addConstraints([twoTrailing, twoTop, twoBottom])
         
         // Three constraints
         let threeTrailing = NSLayoutConstraint(item: threeButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -30)
-        let threeTop = NSLayoutConstraint(item: threeButton, attribute: .top, relatedBy: .equal, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 50)
+        let threeTop = NSLayoutConstraint(item: threeButton, attribute: .top, relatedBy: .equal, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 35)
         let threeBottom = NSLayoutConstraint(item: threeButton, attribute: .bottom, relatedBy: .equal, toItem: sixButton, attribute: .top, multiplier: 1, constant: 0)
         
         view.addConstraints([threeTrailing, threeTop, threeBottom])
@@ -321,7 +353,7 @@ class ConverterViewController: UIViewController {
         
         // Nine constraints
         let nineTrailing = NSLayoutConstraint(item: nineButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -30)
-        let nineBottom = NSLayoutConstraint(item: nineButton, attribute: .bottom, relatedBy: .equal, toItem: backspaceButton, attribute: .top, multiplier: 1, constant: 0)
+        let nineBottom = NSLayoutConstraint(item: nineButton, attribute: .bottom, relatedBy: .equal, toItem: negativeButton, attribute: .top, multiplier: 1, constant: 0)
         
         view.addConstraints([nineTrailing, nineBottom])
         
@@ -333,16 +365,16 @@ class ConverterViewController: UIViewController {
         view.addConstraints([decimalLeading, decimalTrailing, decimalBottom])
         
         // Zero constraints
-        let zeroTrailing = NSLayoutConstraint(item: zeroButton, attribute: .trailing, relatedBy: .equal, toItem: backspaceButton, attribute: .leading, multiplier: 1, constant: 0)
+        let zeroTrailing = NSLayoutConstraint(item: zeroButton, attribute: .trailing, relatedBy: .equal, toItem: negativeButton, attribute: .leading, multiplier: 1, constant: 0)
         let zeroBottom = NSLayoutConstraint(item: zeroButton, attribute: .bottom, relatedBy: .equal, toItem: clearButton, attribute: .top, multiplier: 1, constant: -10)
         
         view.addConstraints([zeroTrailing, zeroBottom])
         
-        // Backspace constraints
-        let backspaceTrailing = NSLayoutConstraint(item: backspaceButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -30)
-        let backspaceBottom = NSLayoutConstraint(item: backspaceButton, attribute: .bottom, relatedBy: .equal, toItem: clearButton, attribute: .top, multiplier: 1, constant: -10)
+        // Negatice constraints
+        let negativeTrailing = NSLayoutConstraint(item: negativeButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -30)
+        let negativeBottom = NSLayoutConstraint(item: negativeButton, attribute: .bottom, relatedBy: .equal, toItem: clearButton, attribute: .top, multiplier: 1, constant: -10)
         
-        view.addConstraints([backspaceTrailing, backspaceBottom])
+        view.addConstraints([negativeTrailing, negativeBottom])
         
         // Clear button constraints
         let clearLeading = NSLayoutConstraint(item: clearButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 115)
@@ -379,190 +411,218 @@ class ConverterViewController: UIViewController {
     
     // MARK: Actions
     @objc func oneButtonTouchDown() {
-        self.oneButton.backgroundColor = .alternateGreen
+        self.oneButton.backgroundColor = .pressedColor
     }
     @objc func twoButtonTouchDown() {
-        self.twoButton.backgroundColor = .alternateGreen
+        self.twoButton.backgroundColor = .pressedColor
     }
     @objc func threeButtonTouchDown() {
-        self.threeButton.backgroundColor = .alternateGreen
+        self.threeButton.backgroundColor = .pressedColor
     }
     @objc func fourButtonTouchDown() {
-        self.fourButton.backgroundColor = .alternateGreen
+        self.fourButton.backgroundColor = .pressedColor
     }
     @objc func fiveButtonTouchDown() {
-        self.fiveButton.backgroundColor = .alternateGreen
+        self.fiveButton.backgroundColor = .pressedColor
     }
     @objc func sixButtonTouchDown() {
-        self.sixButton.backgroundColor = .alternateGreen
+        self.sixButton.backgroundColor = .pressedColor
     }
     @objc func sevenButtonTouchDown() {
-        self.sevenButton.backgroundColor = .alternateGreen
+        self.sevenButton.backgroundColor = .pressedColor
     }
     @objc func eightButtonTouchDown() {
-        self.eightButton.backgroundColor = .alternateGreen
+        self.eightButton.backgroundColor = .pressedColor
     }
     @objc func nineButtonTouchDown() {
-        self.nineButton.backgroundColor = .alternateGreen
+        self.nineButton.backgroundColor = .pressedColor
     }
     @objc func decimalButtonTouchDown() {
-        self.decimalButton.backgroundColor = .alternateGreen
+        self.decimalButton.backgroundColor = .pressedColor
     }
     @objc func zeroButtonTouchDown() {
-        self.zeroButton.backgroundColor = .alternateGreen
+        self.zeroButton.backgroundColor = .pressedColor
     }
-    @objc func backspaceButtonTouchDown() {
-        self.backspaceButton.backgroundColor = .alternateGreen
+    @objc func negativeButtonTouchDown() {
+        self.negativeButton.backgroundColor = .pressedColor
     }
     @objc func clearButtonTouchDown() {
-        self.clearButton.backgroundColor = .alternateGreen
+        self.clearButton.backgroundColor = .pressedColor
     }
     @objc func oneButtonTouchUp() {
-        self.oneButton.backgroundColor = .primaryGreen
+        self.oneButton.backgroundColor = .clear
         clearText()
         let labelText = inputLabel.text ?? ""
         inputLabel.text?.insert("1", at: (labelText.index(before: labelText.endIndex)))
         updateViews()
     }
     @objc func twoButtonTouchUp() {
-        self.twoButton.backgroundColor = .primaryGreen
+        self.twoButton.backgroundColor = .clear
         clearText()
         let labelText = inputLabel.text ?? ""
         inputLabel.text?.insert("2", at: (labelText.index(before: labelText.endIndex)))
         updateViews()
     }
     @objc func threeButtonTouchUp() {
-        self.threeButton.backgroundColor = .primaryGreen
+        self.threeButton.backgroundColor = .clear
         clearText()
         let labelText = inputLabel.text ?? ""
         inputLabel.text?.insert("3", at: (labelText.index(before: labelText.endIndex)))
         updateViews()
     }
     @objc func fourButtonTouchUp() {
-        self.fourButton.backgroundColor = .primaryGreen
+        self.fourButton.backgroundColor = .clear
         clearText()
         let labelText = inputLabel.text ?? ""
         inputLabel.text?.insert("4", at: (labelText.index(before: labelText.endIndex)))
         updateViews()
     }
     @objc func fiveButtonTouchUp() {
-        self.fiveButton.backgroundColor = .primaryGreen
+        self.fiveButton.backgroundColor = .clear
         clearText()
         let labelText = inputLabel.text ?? ""
         inputLabel.text?.insert("5", at: (labelText.index(before: labelText.endIndex)))
         updateViews()
     }
     @objc func sixButtonTouchUp() {
-        self.sixButton.backgroundColor = .primaryGreen
+        self.sixButton.backgroundColor = .clear
         clearText()
         let labelText = inputLabel.text ?? ""
         inputLabel.text?.insert("6", at: (labelText.index(before: labelText.endIndex)))
         updateViews()
     }
     @objc func sevenButtonTouchUp() {
-        self.sevenButton.backgroundColor = .primaryGreen
+        self.sevenButton.backgroundColor = .clear
         clearText()
         let labelText = inputLabel.text ?? ""
         inputLabel.text?.insert("7", at: (labelText.index(before: labelText.endIndex)))
         updateViews()
     }
     @objc func eightButtonTouchUp() {
-        self.eightButton.backgroundColor = .primaryGreen
+        self.eightButton.backgroundColor = .clear
         clearText()
         let labelText = inputLabel.text ?? ""
         inputLabel.text?.insert("8", at: (labelText.index(before: labelText.endIndex)))
         updateViews()
     }
     @objc func nineButtonTouchUp() {
-        self.nineButton.backgroundColor = .primaryGreen
+        self.nineButton.backgroundColor = .clear
         clearText()
         let labelText = inputLabel.text ?? ""
         inputLabel.text?.insert("9", at: (labelText.index(before: labelText.endIndex)))
         updateViews()
     }
     @objc func decimalButtonTouchUp() {
-        self.decimalButton.backgroundColor = .primaryGreen
+        self.decimalButton.backgroundColor = .clear
         clearText()
         let labelText = inputLabel.text ?? ""
         inputLabel.text?.insert(".", at: (labelText.index(before: labelText.endIndex)))
         updateViews()
     }
     @objc func zeroButtonTouchUp() {
-        self.zeroButton.backgroundColor = .primaryGreen
+        self.zeroButton.backgroundColor = .clear
         clearText()
         let labelText = inputLabel.text ?? ""
         inputLabel.text?.insert("0", at: (labelText.index(before: labelText.endIndex)))
         updateViews()
     }
-    @objc func backspaceButtonTouchUp() {
-        self.backspaceButton.backgroundColor = .primaryGreen
+    @objc func negativeButtonTouchUp() {
+        self.negativeButton.backgroundColor = .clear
         clearText()
-        guard  let labelText = inputLabel.text else { return }
-        
-        var index: String.Index?
-        
-        if let symbolIndex = labelText.index(of: "℉") {
-            index = symbolIndex
-        } else if let symbolIndex = labelText.index(of: "℃") {
-            index = symbolIndex
+        let labelText = inputLabel.text ?? ""
+        let inputDouble = Double(labelText.dropLast()) ?? 0
+        if temperatureSegmentedControl.selectedSegmentIndex == 0 {
+            inputLabel.text = "\(inputDouble * -1)℉"
+            updateViews()
+        } else {
+            inputLabel.text = "\(inputDouble * -1)℃"
+            updateViews()
         }
-        
-        guard let unwrappedIndex = index, labelText.count > 1 else { return }
-        
-        inputLabel.text?.remove(at: labelText.index(before: unwrappedIndex))
-        updateViews()
     }
+//    @objc func backspaceButtonTouchUp() {
+//        self.backspaceButton.backgroundColor = .primaryColor
+//        clearText()
+//        guard  let labelText = inputLabel.text else { return }
+//        var index: String.Index?
+//        if let symbolIndex = labelText.index(of: "℉") {
+//            index = symbolIndex
+//        } else if let symbolIndex = labelText.index(of: "℃") {
+//            index = symbolIndex
+//        }
+//        guard let unwrappedIndex = index, labelText.count > 1 else { return }
+//        inputLabel.text?.remove(at: labelText.index(before: unwrappedIndex))
+//        updateViews()
+//    }
+    
     @objc func clearButtonTouchUp() {
-        self.clearButton.backgroundColor = .primaryGreen
+        self.clearButton.backgroundColor = .clear
         if temperatureSegmentedControl.selectedSegmentIndex == 0 {
             inputLabel.text = "℉"
+            updateViews()
             outputLabel.text = "℃"
         } else {
             inputLabel.text = "℃"
+            updateViews()
             outputLabel.text = "℉"
         }
     }
+    
+    @objc func segmentedControlValueChanged() {
+        if temperatureSegmentedControl.selectedSegmentIndex == 0 {
+            inputLabel.text = "℉"
+            updateViews()
+            outputLabel.text = "℃"
+        } else {
+            inputLabel.text = "℃"
+            updateViews()
+            outputLabel.text = "℉"
+        }
+    }
+    
     @objc func oneButtonDragOut() {
-        self.oneButton.backgroundColor = .primaryGreen
+        self.oneButton.backgroundColor = .clear
     }
     @objc func twoButtonDragOut() {
-        self.twoButton.backgroundColor = .primaryGreen
+        self.twoButton.backgroundColor = .clear
     }
     @objc func threeButtonDragOut() {
-        self.threeButton.backgroundColor = .primaryGreen
+        self.threeButton.backgroundColor = .clear
     }
     @objc func fourButtonDragOut() {
-        self.fourButton.backgroundColor = .primaryGreen
+        self.fourButton.backgroundColor = .clear
     }
     @objc func fiveButtonDragOut() {
-        self.fiveButton.backgroundColor = .primaryGreen
+        self.fiveButton.backgroundColor = .clear
     }
     @objc func sixButtonDragOut() {
-        self.sixButton.backgroundColor = .primaryGreen
+        self.sixButton.backgroundColor = .clear
     }
     @objc func sevenButtonDragOut() {
-        self.sevenButton.backgroundColor = .primaryGreen
+        self.sevenButton.backgroundColor = .clear
     }
     @objc func eightButtonDragOut() {
-        self.eightButton.backgroundColor = .primaryGreen
+        self.eightButton.backgroundColor = .clear
     }
     @objc func nineButtonDragOut() {
-        self.nineButton.backgroundColor = .primaryGreen
+        self.nineButton.backgroundColor = .clear
     }
     @objc func decimalButtonDragOut() {
-        self.decimalButton.backgroundColor = .primaryGreen
+        self.decimalButton.backgroundColor = .clear
     }
     @objc func zeroButtonDragOut() {
-        self.zeroButton.backgroundColor = .primaryGreen
+        self.zeroButton.backgroundColor = .clear
     }
-    @objc func backspaceButtonDragOut() {
-        self.backspaceButton.backgroundColor = .primaryGreen
+    @objc func negativeButtonDragOut() {
+        self.negativeButton.backgroundColor = .clear
     }
     @objc func clearButtonDragOut() {
-        self.clearButton.backgroundColor = .primaryGreen
+        self.clearButton.backgroundColor = .clear
     }
     
     // MARK: Properties
+    var inputLabel = UILabel()
+    var equalLabel = UILabel()
+    var outputLabel = UILabel()
     var oneButton = UIButton()
     var twoButton = UIButton()
     var threeButton = UIButton()
@@ -574,11 +634,8 @@ class ConverterViewController: UIViewController {
     var nineButton = UIButton()
     var decimalButton = UIButton()
     var zeroButton = UIButton()
-    var backspaceButton = UIButton()
+    var negativeButton = UIButton()
     var clearButton = UIButton()
-    var inputLabel = UILabel()
-    var outputLabel = UILabel()
-    var equalLabel = UILabel()
     
     // Segmented Control
     let items = ["℉ ▻ ℃", "℃ ▻ ℉"]
