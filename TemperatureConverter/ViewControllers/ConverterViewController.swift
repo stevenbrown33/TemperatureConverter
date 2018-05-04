@@ -19,41 +19,8 @@ class ConverterViewController: UIViewController {
         view.backgroundColor = .primaryColor
         setupButtons()
         setupSegmentedControl()
-        setupButtonConstraints()
-        setupSegmentedControlConstraints()
+        setupConstraints()
         temperatureSegmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
-    }
-    
-    func colorChanging() {
-        guard let inputText = inputLabel.text else { return }
-        let inputDouble = Double(inputText.dropLast()) ?? 0.0
-        if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble <= -10.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble <= -23.33 {
-            view.backgroundColor = .tempOne
-        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > -10.0 && inputDouble <= 0.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > -23.33 && inputDouble <= -17.78 {
-            view.backgroundColor = .tempTwo
-        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 0.0 && inputDouble <= 10.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > -17.78 && inputDouble <= -12.22 {
-            view.backgroundColor = .tempThree
-        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 10.0 && inputDouble <= 20.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > -12.22 && inputDouble <= -6.67 {
-            view.backgroundColor = .tempFour
-        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 20.0 && inputDouble <= 30.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > -6.67 && inputDouble <= -1.11 {
-            view.backgroundColor = .tempFour
-        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 30.0 && inputDouble <= 40.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > -1.11 && inputDouble <= 4.44 {
-            view.backgroundColor = .tempFive
-        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 40.0 && inputDouble <= 50.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > 4.44 && inputDouble <= 10.00 {
-            view.backgroundColor = .tempSix
-        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 50.0 && inputDouble <= 60.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > 10.00 && inputDouble <= 15.56 {
-            view.backgroundColor = .tempSeven
-        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 60.0 && inputDouble <= 70.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > 15.56 && inputDouble <= 21.11 {
-            view.backgroundColor = .tempEight
-        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 70.0 && inputDouble <= 80.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > 21.11 && inputDouble <= 26.67 {
-            view.backgroundColor = .tempNine
-        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 80.0 && inputDouble <= 90.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > 26.67 && inputDouble <= 32.22 {
-            view.backgroundColor = .tempTen
-        } else if temperatureSegmentedControl.selectedSegmentIndex == 0 && inputDouble > 90.0 && inputDouble <= 100.0 || temperatureSegmentedControl.selectedSegmentIndex == 1 && inputDouble > 32.22 && inputDouble <= 37.78 {
-            view.backgroundColor = .tempEleven
-        } else {
-            view.backgroundColor = .tempTwelve
-        }
     }
     
     func updateViews() {
@@ -227,7 +194,7 @@ class ConverterViewController: UIViewController {
     }
     
     //MARK: Constrain Buttons
-    func setupButtonConstraints() {
+    func setupConstraints() {
         oneButton.translatesAutoresizingMaskIntoConstraints = false
         twoButton.translatesAutoresizingMaskIntoConstraints = false
         threeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -246,151 +213,149 @@ class ConverterViewController: UIViewController {
         equalLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Width constraints
-        let inputEqualWidths = NSLayoutConstraint(item: inputLabel, attribute: .width, relatedBy: .equal, toItem: equalLabel, attribute: .width, multiplier: 1, constant: 0)
-        let equalOutputWidths = NSLayoutConstraint(item: equalLabel, attribute: .width, relatedBy: .equal, toItem: outputLabel, attribute: .width, multiplier: 1, constant: 0)
-        let oneTwoWidths = NSLayoutConstraint(item: oneButton, attribute: .width, relatedBy: .equal, toItem: twoButton, attribute: .width, multiplier: 1, constant: 0)
-        let twoThreeWidths = NSLayoutConstraint(item: twoButton, attribute: .width, relatedBy: .equal, toItem: threeButton, attribute: .width, multiplier: 1, constant: 0)
-        let fourFiveWidths = NSLayoutConstraint(item: fourButton, attribute: .width, relatedBy: .equal, toItem: fiveButton, attribute: .width, multiplier: 1, constant: 0)
-        let fiveSixWidths = NSLayoutConstraint(item: fiveButton, attribute: .width, relatedBy: .equal, toItem: sixButton, attribute: .width, multiplier: 1, constant: 0)
-        let sevenEightWidths = NSLayoutConstraint(item: sevenButton, attribute: .width, relatedBy: .equal, toItem: eightButton, attribute: .width, multiplier: 1, constant: 0)
-        let eightNineWidths = NSLayoutConstraint(item: eightButton, attribute: .width, relatedBy: .equal, toItem: nineButton, attribute: .width, multiplier: 1, constant: 0)
-        let decimalZeroWidths = NSLayoutConstraint(item: decimalButton, attribute: .width, relatedBy: .equal, toItem: zeroButton, attribute: .width, multiplier: 1, constant: 0)
-        let zeroNegativeWidths = NSLayoutConstraint(item: zeroButton, attribute: .width, relatedBy: .equal, toItem: negativeButton, attribute: .width, multiplier: 1, constant: 0)
-        let clearButtonSegmentedControlWidths = NSLayoutConstraint(item: clearButton, attribute: .width, relatedBy: .equal, toItem: temperatureSegmentedControl, attribute: .width, multiplier: 1, constant: 0)
+        let segmentedControlWidth = NSLayoutConstraint(item: temperatureSegmentedControl, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0.45, constant: 0)
+        let inputWidth = NSLayoutConstraint(item: inputLabel, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0.95, constant: 0)
+        let equalWidth = NSLayoutConstraint(item: equalLabel, attribute: .width, relatedBy: .equal, toItem: inputLabel, attribute: .width, multiplier: 1, constant: 0)
+        let outputWidth = NSLayoutConstraint(item: outputLabel, attribute: .width, relatedBy: .equal, toItem: equalLabel, attribute: .width, multiplier: 1, constant: 0)
+        let oneWidth = NSLayoutConstraint(item: oneButton, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0.25, constant: 0)
+        let twoWidth = NSLayoutConstraint(item: twoButton, attribute: .width, relatedBy: .equal, toItem: oneButton, attribute: .width, multiplier: 1, constant: 0)
+        let threeWidth = NSLayoutConstraint(item: threeButton, attribute: .width, relatedBy: .equal, toItem: oneButton, attribute: .width, multiplier: 1, constant: 0)
+        let fourWidth = NSLayoutConstraint(item: fourButton, attribute: .width, relatedBy: .equal, toItem: oneButton, attribute: .width, multiplier: 1, constant: 0)
+        let fiveWidth = NSLayoutConstraint(item: fiveButton, attribute: .width, relatedBy: .equal, toItem: oneButton, attribute: .width, multiplier: 1, constant: 0)
+        let sixWidth = NSLayoutConstraint(item: sixButton, attribute: .width, relatedBy: .equal, toItem: oneButton, attribute: .width, multiplier: 1, constant: 0)
+        let sevenWidth = NSLayoutConstraint(item: sevenButton, attribute: .width, relatedBy: .equal, toItem: oneButton, attribute: .width, multiplier: 1, constant: 0)
+        let eightWidth = NSLayoutConstraint(item: eightButton, attribute: .width, relatedBy: .equal, toItem: oneButton, attribute: .width, multiplier: 1, constant: 0)
+        let nineWidth = NSLayoutConstraint(item: nineButton, attribute: .width, relatedBy: .equal, toItem: oneButton, attribute: .width, multiplier: 1, constant: 0)
+        let zeroWidth = NSLayoutConstraint(item: zeroButton, attribute: .width, relatedBy: .equal, toItem: oneButton, attribute: .width, multiplier: 1, constant: 0)
+        let decimalWidth = NSLayoutConstraint(item: decimalButton, attribute: .width, relatedBy: .equal, toItem: oneButton, attribute: .width, multiplier: 1, constant: 0)
+        let negativeWidth = NSLayoutConstraint(item: negativeButton, attribute: .width, relatedBy: .equal, toItem: oneButton, attribute: .width, multiplier: 1, constant: 0)
+        let clearButtonWidth = NSLayoutConstraint(item: clearButton, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0.5, constant: 0)
         
-        view.addConstraints([inputEqualWidths, equalOutputWidths, oneTwoWidths, twoThreeWidths, fourFiveWidths, fiveSixWidths, sevenEightWidths, eightNineWidths, decimalZeroWidths, zeroNegativeWidths, clearButtonSegmentedControlWidths])
+        view.addConstraints([segmentedControlWidth ,inputWidth, equalWidth, outputWidth, oneWidth, twoWidth, threeWidth, fourWidth, fiveWidth, sixWidth, sevenWidth, eightWidth, nineWidth, zeroWidth, decimalWidth, negativeWidth, clearButtonWidth])
         
         // Height constraints
-        let inputOutputHeights = NSLayoutConstraint(item: inputLabel, attribute: .height, relatedBy: .equal, toItem: outputLabel, attribute: .height, multiplier: 1, constant: 0)
-        let equalLabelHeights = NSLayoutConstraint(item: equalLabel, attribute: .height, relatedBy: .equal, toItem: clearButton, attribute: .height, multiplier: 1, constant: 0)
-        let oneFourHeights = NSLayoutConstraint(item: oneButton, attribute: .height, relatedBy: .equal, toItem: fourButton, attribute: .height, multiplier: 1, constant: 0)
-        let fourSevenHeights = NSLayoutConstraint(item: fourButton, attribute: .height, relatedBy: .equal, toItem: sevenButton, attribute: .height, multiplier: 1, constant: 0)
-        let sevenDecimalHeights = NSLayoutConstraint(item: sevenButton, attribute: .height, relatedBy: .equal, toItem: decimalButton, attribute: .height, multiplier: 1, constant: 0)
-        let twoFiveHeights = NSLayoutConstraint(item: twoButton, attribute: .height, relatedBy: .equal, toItem: fiveButton, attribute: .height, multiplier: 1, constant: 0)
-        let fiveEightHeights = NSLayoutConstraint(item: fiveButton, attribute: .height, relatedBy: .equal, toItem: eightButton, attribute: .height, multiplier: 1, constant: 0)
-        let eightZeroHeights = NSLayoutConstraint(item: eightButton, attribute: .height, relatedBy: .equal, toItem: zeroButton, attribute: .height, multiplier: 1, constant: 0)
-        let threeSixHeights = NSLayoutConstraint(item: threeButton, attribute: .height, relatedBy: .equal, toItem: sixButton, attribute: .height, multiplier: 1, constant: 0)
-        let sixNineHeights = NSLayoutConstraint(item: sixButton, attribute: .height, relatedBy: .equal, toItem: nineButton, attribute: .height, multiplier: 1, constant: 0)
-        let nineNegativeHeights = NSLayoutConstraint(item: nineButton, attribute: .height, relatedBy: .equal, toItem: negativeButton, attribute: .height, multiplier: 1, constant: 0)
-        let clearButtonHeights = NSLayoutConstraint(item: clearButton, attribute: .height, relatedBy: .equal, toItem: zeroButton, attribute: .height, multiplier: 1, constant: 0)
+        let segmentedControlHeight = NSLayoutConstraint(item: temperatureSegmentedControl, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30)
+        let inputHeight = NSLayoutConstraint(item: inputLabel, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0.12, constant: 0)
+        let equalHeight = NSLayoutConstraint(item: equalLabel, attribute: .height, relatedBy: .equal, toItem: temperatureSegmentedControl, attribute: .height, multiplier: 1, constant: 0)
+        let outputHeight = NSLayoutConstraint(item: outputLabel, attribute: .height, relatedBy: .equal, toItem: inputLabel, attribute: .height, multiplier: 1, constant: 0)
+        let oneHeight = NSLayoutConstraint(item: oneButton, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0.08, constant: 0)
+        let twoHeight = NSLayoutConstraint(item: twoButton, attribute: .height, relatedBy: .equal, toItem: oneButton, attribute: .height, multiplier: 1, constant: 0)
+        let threeHeight = NSLayoutConstraint(item: threeButton, attribute: .height, relatedBy: .equal, toItem: oneButton, attribute: .height, multiplier: 1, constant: 0)
+        let fourHeight = NSLayoutConstraint(item: fourButton, attribute: .height, relatedBy: .equal, toItem: oneButton, attribute: .height, multiplier: 1, constant: 0)
+        let fiveHeight = NSLayoutConstraint(item: fiveButton, attribute: .height, relatedBy: .equal, toItem: oneButton, attribute: .height, multiplier: 1, constant: 0)
+        let sixHeight = NSLayoutConstraint(item: sixButton, attribute: .height, relatedBy: .equal, toItem: oneButton, attribute: .height, multiplier: 1, constant: 0)
+        let sevenHeight = NSLayoutConstraint(item: sevenButton, attribute: .height, relatedBy: .equal, toItem: oneButton, attribute: .height, multiplier: 1, constant: 0)
+        let eightHeight = NSLayoutConstraint(item: eightButton, attribute: .height, relatedBy: .equal, toItem: oneButton, attribute: .height, multiplier: 1, constant: 0)
+        let nineHeight = NSLayoutConstraint(item: nineButton, attribute: .height, relatedBy: .equal, toItem: oneButton, attribute: .height, multiplier: 1, constant: 0)
+        let zeroHeight = NSLayoutConstraint(item: zeroButton, attribute: .height, relatedBy: .equal, toItem: oneButton, attribute: .height, multiplier: 1, constant: 0)
+        let decimalHeight = NSLayoutConstraint(item: decimalButton, attribute: .height, relatedBy: .equal, toItem: oneButton, attribute: .height, multiplier: 1, constant: 0)
+        let negativeHeight = NSLayoutConstraint(item: negativeButton, attribute: .height, relatedBy: .equal, toItem: oneButton, attribute: .height, multiplier: 1, constant: 0)
+        let clearHeight = NSLayoutConstraint(item: clearButton, attribute: .height, relatedBy: .equal, toItem: oneButton, attribute: .height, multiplier: 1, constant: 0)
         
-        view.addConstraints([inputOutputHeights, equalLabelHeights, oneFourHeights, fourSevenHeights, sevenDecimalHeights, twoFiveHeights, fiveEightHeights, eightZeroHeights, threeSixHeights, sixNineHeights, nineNegativeHeights, clearButtonHeights])
+        view.addConstraints([segmentedControlHeight, inputHeight, equalHeight, outputHeight, oneHeight, twoHeight, threeHeight, fourHeight, fiveHeight, sixHeight, sevenHeight, eightHeight, nineHeight, zeroHeight, decimalHeight, negativeHeight, clearHeight])
+        
+        // Segmented Control constraints
+        let segmentedControlCenter = NSLayoutConstraint(item: temperatureSegmentedControl, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+        let segmentedControlTop = NSLayoutConstraint(item: temperatureSegmentedControl, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: view, attribute: .top, multiplier: 1, constant: 75)
+        
+        view.addConstraints([segmentedControlCenter, segmentedControlTop])
         
         // Input Label constraints
-        let inputLabelLeading =  NSLayoutConstraint(item: inputLabel, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0)
-        let inputLabelTrailing = NSLayoutConstraint(item: inputLabel, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0)
-        let inputLabelTop = NSLayoutConstraint(item: inputLabel, attribute: .top, relatedBy: .equal, toItem: temperatureSegmentedControl, attribute: .bottom, multiplier: 1, constant: 25)
-        let inputLabelBottom = NSLayoutConstraint(item: inputLabel, attribute: .bottom, relatedBy: .equal, toItem: equalLabel, attribute: .top, multiplier: 1, constant: 3)
+        let inputLabelCenter =  NSLayoutConstraint(item: inputLabel, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+        let inputLabelTop = NSLayoutConstraint(item: inputLabel, attribute: .top, relatedBy: .lessThanOrEqual, toItem: temperatureSegmentedControl, attribute: .bottom, multiplier: 1, constant: 20)
         
-        view.addConstraints([inputLabelLeading, inputLabelTrailing, inputLabelTop, inputLabelBottom])
+        view.addConstraints([inputLabelCenter, inputLabelTop])
         
         // Equal Label constraints
-        let equalLabelLeading =  NSLayoutConstraint(item: equalLabel, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0)
-        let equalLabelTrailing = NSLayoutConstraint(item: equalLabel, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0)
-        
-        view.addConstraints([equalLabelLeading, equalLabelTrailing])
+        let equalLabelCenter =  NSLayoutConstraint(item: equalLabel, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+        let equalLabelTop = NSLayoutConstraint(item: equalLabel, attribute: .top, relatedBy: .equal, toItem: inputLabel, attribute: .bottom, multiplier: 1, constant: 3)
+
+        view.addConstraints([equalLabelCenter, equalLabelTop])
         
         // Output Label constraints
-        let outputLabelLeading = NSLayoutConstraint(item: outputLabel, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0)
-        let outputLabelTrailing = NSLayoutConstraint(item: outputLabel, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0)
+        let outputLabelCenter = NSLayoutConstraint(item: outputLabel, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
         let outputLabelTop = NSLayoutConstraint(item: outputLabel, attribute: .top, relatedBy: .equal, toItem: equalLabel, attribute: .bottom, multiplier: 1, constant: 3)
         
-        view.addConstraints([outputLabelLeading, outputLabelTrailing, outputLabelTop])
+        view.addConstraints([outputLabelCenter, outputLabelTop])
         
         // One constraints
-        let oneLeading = NSLayoutConstraint(item: oneButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 30)
         let oneTrailing = NSLayoutConstraint(item: oneButton, attribute: .trailing, relatedBy: .equal, toItem: twoButton, attribute: .leading, multiplier: 1, constant: 0)
-        let oneTop = NSLayoutConstraint(item: oneButton, attribute: .top, relatedBy: .equal, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 35)
-        let oneBottom = NSLayoutConstraint(item: oneButton, attribute: .bottom, relatedBy: .equal, toItem: fourButton, attribute: .top, multiplier: 1, constant: 0)
+        let oneTop = NSLayoutConstraint(item: oneButton, attribute: .top, relatedBy: .lessThanOrEqual, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 20)
         
-        view.addConstraints([oneLeading, oneTrailing, oneTop, oneBottom])
+        view.addConstraints([oneTrailing, oneTop])
         
         // Two constraints
-        let twoTrailing = NSLayoutConstraint(item: twoButton, attribute: .trailing, relatedBy: .equal, toItem: threeButton, attribute: .leading, multiplier: 1, constant: 0)
-        let twoTop = NSLayoutConstraint(item: twoButton, attribute: .top, relatedBy: .equal, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 35)
-        let twoBottom = NSLayoutConstraint(item: twoButton, attribute: .bottom, relatedBy: .equal, toItem: fiveButton, attribute: .top, multiplier: 1, constant: 0)
+        let twoCenter = NSLayoutConstraint(item: twoButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+        let twoTop = NSLayoutConstraint(item: twoButton, attribute: .top, relatedBy: .lessThanOrEqual, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 20)
         
-        view.addConstraints([twoTrailing, twoTop, twoBottom])
+        view.addConstraints([twoCenter, twoTop])
         
         // Three constraints
-        let threeTrailing = NSLayoutConstraint(item: threeButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -30)
-        let threeTop = NSLayoutConstraint(item: threeButton, attribute: .top, relatedBy: .equal, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 35)
-        let threeBottom = NSLayoutConstraint(item: threeButton, attribute: .bottom, relatedBy: .equal, toItem: sixButton, attribute: .top, multiplier: 1, constant: 0)
+        let threeLeading = NSLayoutConstraint(item: threeButton, attribute: .leading, relatedBy: .equal, toItem: twoButton, attribute: .trailing, multiplier: 1, constant: 0)
+        let threeTop = NSLayoutConstraint(item: threeButton, attribute: .top, relatedBy: .lessThanOrEqual, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 20)
         
-        view.addConstraints([threeTrailing, threeTop, threeBottom])
+        view.addConstraints([threeLeading, threeTop])
         
         // Four constraints
-        let fourLeading = NSLayoutConstraint(item: fourButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 30)
         let fourTrailing = NSLayoutConstraint(item: fourButton, attribute: .trailing, relatedBy: .equal, toItem: fiveButton, attribute: .leading, multiplier: 1, constant: 0)
-        let fourBottom = NSLayoutConstraint(item: fourButton, attribute: .bottom, relatedBy: .equal, toItem: sevenButton, attribute: .top, multiplier: 1, constant: 0)
+        let fourTop = NSLayoutConstraint(item: fourButton, attribute: .top, relatedBy: .equal, toItem: oneButton, attribute: .bottom, multiplier: 1, constant: 0)
         
-        view.addConstraints([fourLeading, fourTrailing, fourBottom])
+        view.addConstraints([fourTrailing, fourTop])
         
         // Five constraints
-        let fiveTrailing = NSLayoutConstraint(item: fiveButton, attribute: .trailing, relatedBy: .equal, toItem: sixButton, attribute: .leading, multiplier: 1, constant: 0)
-        let fiveBottom = NSLayoutConstraint(item: fiveButton, attribute: .bottom, relatedBy: .equal, toItem: eightButton, attribute: .top, multiplier: 1, constant: 0)
+        let fiveCenter = NSLayoutConstraint(item: fiveButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+        let fiveTop = NSLayoutConstraint(item: fiveButton, attribute: .top, relatedBy: .equal, toItem: twoButton, attribute: .bottom, multiplier: 1, constant: 0)
         
-        view.addConstraints([fiveTrailing, fiveBottom])
-        
+        view.addConstraints([fiveCenter, fiveTop])
+       
         // Six constraints
-        let sixTrailing = NSLayoutConstraint(item: sixButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -30)
-        let sixBottom = NSLayoutConstraint(item: sixButton, attribute: .bottom, relatedBy: .equal, toItem: nineButton, attribute: .top, multiplier: 1, constant: 0)
+        let sixLeading = NSLayoutConstraint(item: sixButton, attribute: .leading, relatedBy: .equal, toItem: fiveButton, attribute: .trailing, multiplier: 1, constant: 0)
+        let sixTop = NSLayoutConstraint(item: sixButton, attribute: .top, relatedBy: .equal, toItem: threeButton, attribute: .bottom, multiplier: 1, constant: 0)
         
-        view.addConstraints([sixTrailing, sixBottom])
+        view.addConstraints([sixLeading, sixTop])
         
         // Seven constraints
-        let sevenLeading = NSLayoutConstraint(item: sevenButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 30)
         let sevenTrailing = NSLayoutConstraint(item: sevenButton, attribute: .trailing, relatedBy: .equal, toItem: eightButton, attribute: .leading, multiplier: 1, constant: 0)
-        let sevenBottom = NSLayoutConstraint(item: sevenButton, attribute: .bottom, relatedBy: .equal, toItem: decimalButton, attribute: .top, multiplier: 1, constant: 0)
+        let sevenTop = NSLayoutConstraint(item: sevenButton, attribute: .top, relatedBy: .equal, toItem: fourButton, attribute: .bottom, multiplier: 1, constant: 0)
         
-        view.addConstraints([sevenLeading, sevenTrailing, sevenBottom])
+        view.addConstraints([sevenTrailing, sevenTop])
         
         // Eight constraints
-        let eightTrailing = NSLayoutConstraint(item: eightButton, attribute: .trailing, relatedBy: .equal, toItem: nineButton, attribute: .leading, multiplier: 1, constant: 0)
-        let eightBottom = NSLayoutConstraint(item: eightButton, attribute: .bottom, relatedBy: .equal, toItem: zeroButton, attribute: .top, multiplier: 1, constant: 0)
+        let eightCenter = NSLayoutConstraint(item: eightButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+        let eightTop = NSLayoutConstraint(item: eightButton, attribute: .top, relatedBy: .equal, toItem: fiveButton, attribute: .bottom, multiplier: 1, constant: 0)
         
-        view.addConstraints([eightTrailing, eightBottom])
+        view.addConstraints([eightCenter, eightTop])
         
         // Nine constraints
-        let nineTrailing = NSLayoutConstraint(item: nineButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -30)
-        let nineBottom = NSLayoutConstraint(item: nineButton, attribute: .bottom, relatedBy: .equal, toItem: negativeButton, attribute: .top, multiplier: 1, constant: 0)
+        let nineLeading = NSLayoutConstraint(item: nineButton, attribute: .leading, relatedBy: .equal, toItem: eightButton, attribute: .trailing, multiplier: 1, constant: 0)
+        let nineTop = NSLayoutConstraint(item: nineButton, attribute: .top, relatedBy: .equal, toItem: sixButton, attribute: .bottom, multiplier: 1, constant: 0)
         
-        view.addConstraints([nineTrailing, nineBottom])
+        view.addConstraints([nineLeading, nineTop])
         
         // Decimal constraints
-        let decimalLeading = NSLayoutConstraint(item: decimalButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 30)
         let decimalTrailing = NSLayoutConstraint(item: decimalButton, attribute: .trailing, relatedBy: .equal, toItem: zeroButton, attribute: .leading, multiplier: 1, constant: 0)
-        let decimalBottom = NSLayoutConstraint(item: decimalButton, attribute: .bottom, relatedBy: .equal, toItem: clearButton, attribute: .top, multiplier: 1, constant: -10)
+        let decimalTop = NSLayoutConstraint(item: decimalButton, attribute: .top, relatedBy: .equal, toItem: sevenButton, attribute: .bottom, multiplier: 1, constant: 0)
         
-        view.addConstraints([decimalLeading, decimalTrailing, decimalBottom])
+        view.addConstraints([decimalTrailing, decimalTop])
         
         // Zero constraints
-        let zeroTrailing = NSLayoutConstraint(item: zeroButton, attribute: .trailing, relatedBy: .equal, toItem: negativeButton, attribute: .leading, multiplier: 1, constant: 0)
-        let zeroBottom = NSLayoutConstraint(item: zeroButton, attribute: .bottom, relatedBy: .equal, toItem: clearButton, attribute: .top, multiplier: 1, constant: -10)
+        let zeroCenter = NSLayoutConstraint(item: zeroButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+        let zeroTop = NSLayoutConstraint(item: zeroButton, attribute: .top, relatedBy: .equal, toItem: eightButton, attribute: .bottom, multiplier: 1, constant: 0)
         
-        view.addConstraints([zeroTrailing, zeroBottom])
+        view.addConstraints([zeroCenter, zeroTop])
         
-        // Negatice constraints
-        let negativeTrailing = NSLayoutConstraint(item: negativeButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -30)
-        let negativeBottom = NSLayoutConstraint(item: negativeButton, attribute: .bottom, relatedBy: .equal, toItem: clearButton, attribute: .top, multiplier: 1, constant: -10)
+        // Negative constraints
+        let negativeLeading = NSLayoutConstraint(item: negativeButton, attribute: .leading, relatedBy: .equal, toItem: zeroButton, attribute: .trailing, multiplier: 1, constant: 0)
+        let negativeTop = NSLayoutConstraint(item: negativeButton, attribute: .top, relatedBy: .equal, toItem: nineButton, attribute: .bottom, multiplier: 1, constant: 0)
         
-        view.addConstraints([negativeTrailing, negativeBottom])
+        view.addConstraints([negativeLeading, negativeTop])
         
         // Clear button constraints
-        let clearLeading = NSLayoutConstraint(item: clearButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 115)
-        let clearTrailing = NSLayoutConstraint(item: clearButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -115)
-        let clearBottom = NSLayoutConstraint(item: clearButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -65)
+        let clearCenter = NSLayoutConstraint(item: clearButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+        let clearTop = NSLayoutConstraint(item: clearButton, attribute: .top, relatedBy: .equal, toItem: zeroButton, attribute: .bottom, multiplier: 1, constant: 10)
+        let clearBottom = NSLayoutConstraint(item: clearButton, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: view, attribute: .bottom, multiplier: 1, constant: -50)
         
-        view.addConstraints([clearLeading, clearTrailing, clearBottom])
-    }
-    
-    //MARK: Constrain SegmentedControl
-    func setupSegmentedControlConstraints() {
-        let segmentedControlHeights = NSLayoutConstraint(item: temperatureSegmentedControl, attribute: .height, relatedBy: .equal, toItem: temperatureSegmentedControl, attribute: .height, multiplier: 1, constant: 30)
-        let segmentedControlLeading = NSLayoutConstraint(item: temperatureSegmentedControl, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 115)
-        let segmentedControlTrailing = NSLayoutConstraint(item: temperatureSegmentedControl, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -115)
-        let segmentedControlTop = NSLayoutConstraint(item: temperatureSegmentedControl, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 85)
-        view.addConstraints([segmentedControlHeights, segmentedControlLeading, segmentedControlTrailing, segmentedControlTop])
+        view.addConstraints([clearCenter, clearTop, clearBottom])
     }
     
     var textHasBeenCleared = false
@@ -539,20 +504,6 @@ class ConverterViewController: UIViewController {
             updateViews()
         }
     }
-//    @objc func backspaceButtonTouchUp() {
-//        self.backspaceButton.backgroundColor = .primaryColor
-//        clearText()
-//        guard  let labelText = inputLabel.text else { return }
-//        var index: String.Index?
-//        if let symbolIndex = labelText.index(of: "℉") {
-//            index = symbolIndex
-//        } else if let symbolIndex = labelText.index(of: "℃") {
-//            index = symbolIndex
-//        }
-//        guard let unwrappedIndex = index, labelText.count > 1 else { return }
-//        inputLabel.text?.remove(at: labelText.index(before: unwrappedIndex))
-//        updateViews()
-//    }
     
     @objc func clearButtonTouchUp() {
         self.clearButton.backgroundColor = .clear
