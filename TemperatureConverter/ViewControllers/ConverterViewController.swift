@@ -280,9 +280,9 @@ class ConverterViewController: UIViewController {
         
         // One constraints
         let oneTrailing = NSLayoutConstraint(item: oneButton, attribute: .trailing, relatedBy: .equal, toItem: twoButton, attribute: .leading, multiplier: 1, constant: 0)
-        let oneTop = NSLayoutConstraint(item: oneButton, attribute: .top, relatedBy: .lessThanOrEqual, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 20)
+        let oneY = NSLayoutConstraint(item: oneButton, attribute: .centerY, relatedBy: .equal, toItem: twoButton, attribute: .centerY, multiplier: 1, constant: 0)
         
-        view.addConstraints([oneTrailing, oneTop])
+        view.addConstraints([oneTrailing, oneY])
         
         // Two constraints
         let twoCenter = NSLayoutConstraint(item: twoButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
@@ -292,15 +292,15 @@ class ConverterViewController: UIViewController {
         
         // Three constraints
         let threeLeading = NSLayoutConstraint(item: threeButton, attribute: .leading, relatedBy: .equal, toItem: twoButton, attribute: .trailing, multiplier: 1, constant: 0)
-        let threeTop = NSLayoutConstraint(item: threeButton, attribute: .top, relatedBy: .lessThanOrEqual, toItem: outputLabel, attribute: .bottom, multiplier: 1, constant: 20)
+        let threeY = NSLayoutConstraint(item: threeButton, attribute: .centerY, relatedBy: .equal, toItem: twoButton, attribute: .centerY, multiplier: 1, constant: 0)
         
-        view.addConstraints([threeLeading, threeTop])
+        view.addConstraints([threeLeading, threeY])
         
         // Four constraints
         let fourTrailing = NSLayoutConstraint(item: fourButton, attribute: .trailing, relatedBy: .equal, toItem: fiveButton, attribute: .leading, multiplier: 1, constant: 0)
-        let fourTop = NSLayoutConstraint(item: fourButton, attribute: .top, relatedBy: .equal, toItem: oneButton, attribute: .bottom, multiplier: 1, constant: 0)
-        
-        view.addConstraints([fourTrailing, fourTop])
+        let fourY = NSLayoutConstraint(item: fourButton, attribute: .centerY, relatedBy: .equal, toItem: fiveButton, attribute: .centerY, multiplier: 1, constant: 0)
+
+        view.addConstraints([fourTrailing, fourY])
         
         // Five constraints
         let fiveCenter = NSLayoutConstraint(item: fiveButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
@@ -310,15 +310,15 @@ class ConverterViewController: UIViewController {
        
         // Six constraints
         let sixLeading = NSLayoutConstraint(item: sixButton, attribute: .leading, relatedBy: .equal, toItem: fiveButton, attribute: .trailing, multiplier: 1, constant: 0)
-        let sixTop = NSLayoutConstraint(item: sixButton, attribute: .top, relatedBy: .equal, toItem: threeButton, attribute: .bottom, multiplier: 1, constant: 0)
-        
-        view.addConstraints([sixLeading, sixTop])
+        let sixY = NSLayoutConstraint(item: sixButton, attribute: .centerY, relatedBy: .equal, toItem: fiveButton, attribute: .centerY, multiplier: 1, constant: 0)
+
+        view.addConstraints([sixLeading, sixY])
         
         // Seven constraints
         let sevenTrailing = NSLayoutConstraint(item: sevenButton, attribute: .trailing, relatedBy: .equal, toItem: eightButton, attribute: .leading, multiplier: 1, constant: 0)
-        let sevenTop = NSLayoutConstraint(item: sevenButton, attribute: .top, relatedBy: .equal, toItem: fourButton, attribute: .bottom, multiplier: 1, constant: 0)
-        
-        view.addConstraints([sevenTrailing, sevenTop])
+        let sevenY = NSLayoutConstraint(item: sevenButton, attribute: .centerY, relatedBy: .equal, toItem: eightButton, attribute: .centerY, multiplier: 1, constant: 0)
+
+        view.addConstraints([sevenTrailing, sevenY])
         
         // Eight constraints
         let eightCenter = NSLayoutConstraint(item: eightButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
@@ -328,15 +328,15 @@ class ConverterViewController: UIViewController {
         
         // Nine constraints
         let nineLeading = NSLayoutConstraint(item: nineButton, attribute: .leading, relatedBy: .equal, toItem: eightButton, attribute: .trailing, multiplier: 1, constant: 0)
-        let nineTop = NSLayoutConstraint(item: nineButton, attribute: .top, relatedBy: .equal, toItem: sixButton, attribute: .bottom, multiplier: 1, constant: 0)
-        
-        view.addConstraints([nineLeading, nineTop])
+        let nineY = NSLayoutConstraint(item: nineButton, attribute: .centerY, relatedBy: .equal, toItem: eightButton, attribute: .centerY, multiplier: 1, constant: 0)
+
+        view.addConstraints([nineLeading, nineY])
         
         // Decimal constraints
         let decimalTrailing = NSLayoutConstraint(item: decimalButton, attribute: .trailing, relatedBy: .equal, toItem: zeroButton, attribute: .leading, multiplier: 1, constant: 0)
-        let decimalTop = NSLayoutConstraint(item: decimalButton, attribute: .top, relatedBy: .equal, toItem: sevenButton, attribute: .bottom, multiplier: 1, constant: 0)
-        
-        view.addConstraints([decimalTrailing, decimalTop])
+        let decimalY = NSLayoutConstraint(item: decimalButton, attribute: .centerY, relatedBy: .equal, toItem: zeroButton, attribute: .centerY, multiplier: 1, constant: 0)
+
+        view.addConstraints([decimalTrailing, decimalY])
         
         // Zero constraints
         let zeroCenter = NSLayoutConstraint(item: zeroButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
@@ -346,16 +346,16 @@ class ConverterViewController: UIViewController {
         
         // Negative constraints
         let negativeLeading = NSLayoutConstraint(item: negativeButton, attribute: .leading, relatedBy: .equal, toItem: zeroButton, attribute: .trailing, multiplier: 1, constant: 0)
-        let negativeTop = NSLayoutConstraint(item: negativeButton, attribute: .top, relatedBy: .equal, toItem: nineButton, attribute: .bottom, multiplier: 1, constant: 0)
-        
-        view.addConstraints([negativeLeading, negativeTop])
+        let negativeY = NSLayoutConstraint(item: negativeButton, attribute: .centerY, relatedBy: .equal, toItem: zeroButton, attribute: .centerY, multiplier: 1, constant: 0)
+
+        view.addConstraints([negativeLeading, negativeY])
         
         // Clear button constraints
         let clearCenter = NSLayoutConstraint(item: clearButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
         let clearTop = NSLayoutConstraint(item: clearButton, attribute: .top, relatedBy: .equal, toItem: zeroButton, attribute: .bottom, multiplier: 1, constant: 10)
-        let clearBottom = NSLayoutConstraint(item: clearButton, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: view, attribute: .bottom, multiplier: 1, constant: -50)
+        //let clearBottom = NSLayoutConstraint(item: clearButton, attribute: .bottom, relatedBy: .greaterThanOrEqual, toItem: view, attribute: .bottom, multiplier: 1, constant: -50)
         
-        view.addConstraints([clearCenter, clearTop, clearBottom])
+        view.addConstraints([clearCenter, clearTop])
     }
     
     var textHasBeenCleared = false
